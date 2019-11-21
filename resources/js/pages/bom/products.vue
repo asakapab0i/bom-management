@@ -2,13 +2,12 @@
   <card :title="$t('bom_productlist')">
   <div>
     <b-table
-      :borderless="borderless"
-      :items="data">
-      <template v-slot:table-busy>
-        <div class="text-center text-danger my-2">
-          <b-spinner class="align-middle"></b-spinner>
-          <strong>Loading...</strong>
-        </div>
+      :items="items"
+      :fields="fields">
+      <template v-slot:cell(show_details)="row">
+        <b-button size="sm" class="mr-2">
+          Show Details
+        </b-button>
       </template>
     </b-table>
   </div>
@@ -33,14 +32,15 @@ export default {
   },
   data(){
     return {
-      data : null,
+      fields: ['productName', 'productQuantity', 'productStatus', 'created_at'],
+      items : null,
       isBusy: false,
     }
   },
   created(){
     this.toggleBusy()
     fetch('/api/bom').then(response => response.json())
-            .then((data) => this.data = data);
+            .then((data) => this.items = data);
     this.toggleBusy()
   },
   methods: {

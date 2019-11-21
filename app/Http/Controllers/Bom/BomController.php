@@ -16,7 +16,7 @@ class BomController extends Controller
     public function index()
     {
         $bom = new Bom();
-        return $bom->all('productName', 'created_at');
+        return $bom->select('productName', 'productQuantity', 'productStatus', 'created_at')->orderBy('created_at', 'desc')->get();
     }
 
     /**
@@ -39,6 +39,8 @@ class BomController extends Controller
     {
         $bom = new Bom();
         $bom->productName = $request->input('product_name');
+        $bom->productQuantity = $request->input('product_quantity');
+        $bom->productStatus = "Not Approved";
         $bom->save();
     }
 

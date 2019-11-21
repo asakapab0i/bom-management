@@ -30,7 +30,8 @@ export default [
       { path: 'products', name: 'bom.products', component: page('bom/products.vue') },
       { path: 'materials', name: 'bom.materials', component: page('bom/materials.vue') },
       { path: 'hardwares', name: 'bom.hardwares', component: page('bom/hardwares.vue') },
-      { path: 'add_product', name: 'bom.add_product', component: page('bom/add_product.vue') }
+      { path: 'add_product', name: 'bom.add_product', component: page('bom/add_product.vue') },
+      { path: 'view_product', name: 'bom.view_product', component: page('bom/view_product.vue') }
     ]
   },
 
