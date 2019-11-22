@@ -40,7 +40,6 @@
               <b-button size="sm" variant="success" type="submit">Update</b-button>
             </b-form>
             <template v-slot:modal-footer="{ ok, cancel, hide }">
-              <b-button size="sm" variant="outline-success" @click="hide('forget')">Approve</b-button>
               <b-button size="sm" variant="danger" @click="cancel()">Close</b-button>
               <!-- Button with custom close trigger value -->
             </template>

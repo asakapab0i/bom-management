@@ -92,4 +92,18 @@ class HardwareController extends Controller
     {
         //
     }
+
+    public function hardware_categories(){
+        $mat = new Hardware();
+        $matResult = $mat->select('id', 'hardwareName', 'hardwareQuantity')->orderBy('created_at', 'desc')->get();
+        $matArr = [];
+        foreach($matResult as $k => $v){
+            $matArr['value'] = $v->hardwareName;
+            $matArr['text'] = $v->hardwareName;
+
+            $matArr2[] = $matArr;
+        }
+
+        return $matArr2;
+    }
 }

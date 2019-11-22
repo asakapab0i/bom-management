@@ -40,8 +40,8 @@
               <div class="form-row material-input">
                 <!-- Material Name -->
                 <b-form-group class="col-md-6" id="input-group-1" label="Material Name:" label-for="input-1">
-                  <div v-if="product">
-                    <b-form-input id="input-1" type="text"></b-form-input>
+                  <div v-if="materials">
+                    <b-form-select :options="materials"></b-form-select>
                   </div>
                 </b-form-group>
                 <!-- Material Quantity -->
@@ -54,8 +54,8 @@
               <div class="form-row hardware-input">
                 <!-- Hardware Name -->
                 <b-form-group class="col-md-6" id="input-group-1" label="Hardware Name:" label-for="input-1">
-                  <div v-if="product">
-                    <b-form-input id="input-1" type="text"></b-form-input>
+                  <div v-if="hardwares">
+                    <b-form-select :options="hardwares"></b-form-select>
                   </div>
                 </b-form-group>
                 <!-- Hardware Quantity -->
@@ -125,7 +125,9 @@ export default {
       ],
       items: null,
       isBusy: true,
-      product: null
+      product: null,
+      hardwares: null,
+      materials: null,
     };
   },
   created() {
@@ -142,7 +144,19 @@ export default {
     toggleBusy() {
       this.isBusy = !this.isBusy;
     },
+    get_hardwares(){
+       fetch("/api/hardware_categories/")
+        .then(response => response.json())
+        .then(data => (this.hardwares = data));
+    },
+    get_materials(){
+       fetch("/api/material_categories/")
+        .then(response => response.json())
+        .then(data => (this.materials = data));
+    },
     get_product(id) {
+      this.get_materials()
+      this.get_hardwares()
       fetch("/api/bom/" + id)
         .then(response => response.json())
         .then(data => (this.product = data));

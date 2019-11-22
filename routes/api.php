@@ -36,6 +36,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/material/{id}', 'Bom\MaterialController@show');
     Route::post('/material/{id}', 'Bom\MaterialController@edit');
     Route::post('/material', 'Bom\MaterialController@store');
+    Route::get('/material_categories', 'Bom\MaterialController@material_categories');
+    Route::get('/hardware_categories', 'Bom\HardwareController@hardware_categories');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

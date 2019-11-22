@@ -92,4 +92,18 @@ class MaterialController extends Controller
     {
         //
     }
+
+    public function material_categories(){
+        $mat = new Material();
+        $matResult = $mat->select('id', 'materialName', 'materialQuantity')->orderBy('created_at', 'desc')->get();
+        $matArr = [];
+        foreach($matResult as $k => $v){
+            $matArr['value'] = $v->materialName;
+            $matArr['text'] = $v->materialName;
+
+            $matArr2[] = $matArr;
+        }
+
+        return $matArr2;
+    }
 }
