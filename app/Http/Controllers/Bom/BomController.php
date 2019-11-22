@@ -5,6 +5,8 @@ namespace App\Http\Controllers\Bom;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Bom;
+use App\Material;
+use App\Hardware;
 
 class BomController extends Controller
 {
@@ -16,7 +18,7 @@ class BomController extends Controller
     public function index()
     {
         $bom = new Bom();
-        return $bom->select('id', 'productName', 'productQuantity', 'productStatus', 'created_at')->orderBy('created_at', 'desc')->get();
+        return $bom->select('id', 'productName', 'productQuantity', 'productStatus', 'material', 'materialQuantity', 'hardware', 'hardwareQuantity', 'created_at')->orderBy('created_at', 'desc')->get();
     }
 
     /**
@@ -68,6 +70,10 @@ class BomController extends Controller
         $bom = Bom::find($id);
         $bom->productName = $request->toArray()[0]['productName'];
         $bom->productQuantity = $request->toArray()[0]['productQuantity'];
+        $bom->hardware = $request->toArray()[0]['hardware'];
+        $bom->material = $request->toArray()[0]['material'];
+        $bom->hardwareQuantity = $request->toArray()[0]['hardwareQuantity'];
+        $bom->materialQuantity = $request->toArray()[0]['materialQuantity'];
         $bom->save();
     }
 

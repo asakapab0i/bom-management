@@ -34,20 +34,20 @@
               <!-- Product Quantity -->
               <b-form-group id="input-group-1" label="Product Quantity:" label-for="input-1">
                 <div v-if="product">
-                  <b-form-input id="input-1" v-model="product[0].productQuantity" type="number"></b-form-input>
+                  <b-form-input @keyup="changeQty" id="input-1" v-model="product[0].productQuantity" type="number"></b-form-input>
                 </div>
               </b-form-group>
               <div class="form-row material-input">
                 <!-- Material Name -->
                 <b-form-group class="col-md-6" id="input-group-1" label="Material Name:" label-for="input-1">
                   <div v-if="materials">
-                    <b-form-select :options="materials"></b-form-select>
+                    <b-form-select v-model="product[0].material" :options="materials"></b-form-select>
                   </div>
                 </b-form-group>
                 <!-- Material Quantity -->
                 <b-form-group class="col-md-6" id="input-group-1" label="Material Quantity:" label-for="input-1">
                   <div v-if="product">
-                    <b-form-input id="input-1" type="number"></b-form-input>
+                    <b-form-input v-model="product[0].materialQuantity" id="input-1" type="number"></b-form-input>
                   </div>
                 </b-form-group>
               </div>
@@ -55,13 +55,13 @@
                 <!-- Hardware Name -->
                 <b-form-group class="col-md-6" id="input-group-1" label="Hardware Name:" label-for="input-1">
                   <div v-if="hardwares">
-                    <b-form-select :options="hardwares"></b-form-select>
+                    <b-form-select v-model="product[0].hardware" :options="hardwares"></b-form-select>
                   </div>
                 </b-form-group>
                 <!-- Hardware Quantity -->
                 <b-form-group class="col-md-6" id="input-group-1" label="Hardware Quantity:" label-for="input-1">
                   <div v-if="product">
-                    <b-form-input id="input-1" type="number"></b-form-input>
+                    <b-form-input v-model="product[0].hardwareQuantity" id="input-1" type="number"></b-form-input>
                   </div>
                 </b-form-group>
               </div>
@@ -170,6 +170,12 @@ export default {
       fetch("/api/bom")
         .then(response => response.json())
         .then(data => (this.items = data));
+    },
+    changeQty(){
+      if(this.product[0].productQuantity > 1){
+        this.product[0].hardwareQuantity = this.product[0].hardwareQuantity * this.product[0].productQuantity
+        this.product[0].materialQuantity = this.product[0].materialQuantity * this.product[0].productQuantity
+      }
     }
   }
 };

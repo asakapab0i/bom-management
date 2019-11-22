@@ -98,7 +98,7 @@ class MaterialController extends Controller
         $matResult = $mat->select('id', 'materialName', 'materialQuantity')->orderBy('created_at', 'desc')->get();
         $matArr = [];
         foreach($matResult as $k => $v){
-            $matArr['value'] = $v->materialName;
+            $matArr['value'] = $v->id;
             $matArr['text'] = $v->materialName;
 
             $matArr2[] = $matArr;
