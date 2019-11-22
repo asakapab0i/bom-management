@@ -16,7 +16,7 @@ class BomController extends Controller
     public function index()
     {
         $bom = new Bom();
-        return $bom->select('productName', 'productQuantity', 'productStatus', 'created_at')->orderBy('created_at', 'desc')->get();
+        return $bom->select('id', 'productName', 'productQuantity', 'productStatus', 'created_at')->orderBy('created_at', 'desc')->get();
     }
 
     /**
