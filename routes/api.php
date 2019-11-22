@@ -25,7 +25,17 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::get('/bom', 'Bom\BomController@index');
     Route::get('/bom/{id}', 'Bom\BomController@show');
     Route::post('/bom/{id}', 'Bom\BomController@edit');
-    Route::post('/bom/store', 'Bom\BomController@store');
+    Route::post('/bom', 'Bom\BomController@store');
+
+    Route::get('/hardware', 'Bom\HardwareController@index');
+    Route::get('/hardware/{id}', 'Bom\HardwareController@show');
+    Route::post('/hardware/{id}', 'Bom\HardwareController@edit');
+    Route::post('/hardware', 'Bom\HardwareController@store');
+
+    Route::get('/material', 'Bom\MaterialController@index');
+    Route::get('/material/{id}', 'Bom\MaterialController@show');
+    Route::post('/material/{id}', 'Bom\MaterialController@edit');
+    Route::post('/material', 'Bom\MaterialController@store');
 });
 
 Route::group(['middleware' => 'guest:api'], function () {

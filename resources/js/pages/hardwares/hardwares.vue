@@ -1,5 +1,5 @@
 <template>
-  <card :title="$t('bom_productlist')">
+  <card title="Hardware List">
     <div>
       <b-table
         borderless
@@ -17,54 +17,26 @@
             v-b-modal="'product-modal' + row.item.id"
           >Show Details</b-button>
           <!-- The modal -->
-          <b-modal :id="'product-modal' + row.item.id" title="Update Product">
+          <b-modal :id="'product-modal' + row.item.id" title="Update Hardware">
             <b-alert
               variant="success"
               dismissible
               :show="showAlert"
               @dismissed="showAlert=false"
-            >Product updated!</b-alert>
+            >Hardware updated!</b-alert>
             <b-form @submit.prevent="update_product(row.item.id)">
               <!-- Product Name -->
-              <b-form-group id="input-group-1" label="Product Name:" label-for="input-1">
+              <b-form-group id="input-group-1" label="Hardware Name:" label-for="input-1">
                 <div v-if="product">
-                  <b-form-input id="input-1" v-model="product[0].productName" type="text" required></b-form-input>
+                  <b-form-input id="input-1" v-model="product[0].hardwareName" type="text" required></b-form-input>
                 </div>
               </b-form-group>
               <!-- Product Quantity -->
-              <b-form-group id="input-group-1" label="Product Quantity:" label-for="input-1">
+              <b-form-group id="input-group-1" label="Hardware Quantity:" label-for="input-1">
                 <div v-if="product">
-                  <b-form-input id="input-1" v-model="product[0].productQuantity" type="number"></b-form-input>
+                  <b-form-input id="input-1" v-model="product[0].hardwareQuantity" type="number"></b-form-input>
                 </div>
               </b-form-group>
-              <div class="form-row material-input">
-                <!-- Material Name -->
-                <b-form-group class="col-md-6" id="input-group-1" label="Material Name:" label-for="input-1">
-                  <div v-if="product">
-                    <b-form-input id="input-1" type="text"></b-form-input>
-                  </div>
-                </b-form-group>
-                <!-- Material Quantity -->
-                <b-form-group class="col-md-6" id="input-group-1" label="Material Quantity:" label-for="input-1">
-                  <div v-if="product">
-                    <b-form-input id="input-1" type="number"></b-form-input>
-                  </div>
-                </b-form-group>
-              </div>
-              <div class="form-row hardware-input">
-                <!-- Hardware Name -->
-                <b-form-group class="col-md-6" id="input-group-1" label="Hardware Name:" label-for="input-1">
-                  <div v-if="product">
-                    <b-form-input id="input-1" type="text"></b-form-input>
-                  </div>
-                </b-form-group>
-                <!-- Hardware Quantity -->
-                <b-form-group class="col-md-6" id="input-group-1" label="Hardware Quantity:" label-for="input-1">
-                  <div v-if="product">
-                    <b-form-input id="input-1" type="number"></b-form-input>
-                  </div>
-                </b-form-group>
-              </div>
               <b-button size="sm" variant="success" type="submit">Update</b-button>
             </b-form>
             <template v-slot:modal-footer="{ ok, cancel, hide }">
@@ -87,8 +59,8 @@
       </b-table>
     </div>
     <div class="float-right">
-      <router-link :to="{ name: add_product.route }">
-        <b-button variant="outline-primary">{{ $t('bom_add_product') }}</b-button>
+      <router-link :to="{ name: add_material.route }">
+        <b-button variant="outline-primary">Add Hardware</b-button>
       </router-link>
     </div>
   </card>
@@ -98,10 +70,10 @@
 export default {
   middleware: "auth",
   computed: {
-    add_product() {
+    add_material() {
       return {
-        name: "Add Product",
-        route: "bom.add_product"
+        name: "Add Hardware",
+        route: "bom.add_hardware"
       };
     }
   },
@@ -117,9 +89,8 @@ export default {
       sortBy: "created_at",
       sortDesc: true,
       fields: [
-        { key: "productName", sortable: true },
-        { key: "productQuantity", sortable: true },
-        { key: "productStatus", sortable: true },
+        { key: "hardwareName", sortable: true },
+        { key: "hardwareQuantity", sortable: true },
         { key: "created_at", sortable: true },
         { key: "show_details", sortable: true }
       ],
@@ -130,7 +101,7 @@ export default {
   },
   created() {
     this.toggleBusy();
-    fetch("/api/bom")
+    fetch("/api/hardware")
       .then(response => response.json())
       .then(data => (this.items = data));
     this.toggleBusy();
@@ -143,17 +114,17 @@ export default {
       this.isBusy = !this.isBusy;
     },
     get_product(id) {
-      fetch("/api/bom/" + id)
+      fetch("/api/hardware/" + id)
         .then(response => response.json())
         .then(data => (this.product = data));
     },
     update_product(id) {
-      this.$http.post("/api/bom/" + id, this.product, function(data) {});
+      this.$http.post("/api/hardware/" + id, this.product, function(data) {});
       this.showAlert = true;
     },
     refresh_products() {
       this.isBusy = true;
-      fetch("/api/bom")
+      fetch("/api/hardware")
         .then(response => response.json())
         .then(data => (this.items = data));
     }

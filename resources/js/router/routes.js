@@ -28,10 +28,12 @@ export default [
     children: [
       { path: '', redirect: { name: 'bom.products' } },
       { path: 'products', name: 'bom.products', component: page('bom/products.vue') },
-      { path: 'materials', name: 'bom.materials', component: page('bom/materials.vue') },
-      { path: 'hardwares', name: 'bom.hardwares', component: page('bom/hardwares.vue') },
+      { path: 'materials', name: 'bom.materials', component: page('materials/materials.vue') },
+      { path: 'hardwares', name: 'bom.hardwares', component: page('hardwares/hardwares.vue') },
       { path: 'add_product', name: 'bom.add_product', component: page('bom/add_product.vue') },
-      { path: 'view_product', name: 'bom.view_product', component: page('bom/view_product.vue') }
+      { path: 'view_product', name: 'bom.view_product', component: page('bom/view_product.vue') },
+      { path: 'add_material', name: 'bom.add_material', component: page('materials/add_material.vue') },
+      { path: 'add_hardware', name: 'bom.add_hardware', component: page('hardwares/add_hardware.vue') }
     ]
   },
 

@@ -1,21 +1,21 @@
 <template>
-  <card :title="$t('bom_add_product')">
+  <card title="Add Material">
     <b-alert
               variant="success"
               dismissible
               :show="showAlert"
               @dismissed="showAlert=false"
-            >Product updated!</b-alert>
-    <form @submit.prevent="add_product" @keydown="form.onKeydown($event)">
+            >Material has been added!</b-alert>
+    <form @submit.prevent="add_material" @keydown="form.onKeydown($event)">
       <!-- Product Name -->
       <b-form-group
         id="input-group-1"
-        label="Product Name:"
+        label="Material Name:"
         label-for="input-1"
       >
         <b-form-input
           id="input-1"
-          v-model="form.product_name"
+          v-model="form.material_name"
           type="text"
           required
         ></b-form-input>
@@ -24,12 +24,12 @@
       <!-- Product Quantity -->
       <b-form-group
         id="input-group-1"
-        label="Product Quantity:"
+        label="Material Quantity:"
         label-for="input-1"
       >
         <b-form-input
           id="input-1"
-          v-model="form.product_quantity"
+          v-model="form.material_quantity"
           type="number"
           required
         ></b-form-input>
@@ -41,7 +41,7 @@
           type="submit"
           variant="outline-primary"
         >
-            {{ $t('bom_add_product') }}
+            Add Material
         </b-button>
       </div>
     </form>
@@ -56,19 +56,18 @@ export default {
   scrollToTop: false,
 
   metaInfo () {
-    return { title: this.$t('bom_add_product') }
+    return { title: "Add Material" }
   },
 
   data: () => ({
     showAlert: false,
     form: new Form({
-      product_name: '',
     })
   }),
 
   methods: {
-    async add_product () {
-      const { data } = await this.form.post('/api/bom')
+    async add_material () {
+      const { data } = await this.form.post('/api/material')
       this.showAlert = true
       this.form.reset()
     }
