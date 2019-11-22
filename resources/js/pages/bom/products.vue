@@ -18,6 +18,7 @@
           >Show Details</b-button>
           <!-- The modal -->
           <b-modal :id="'product-modal' + row.item.id" title="Update Product">
+            <b-alert variant="success" dismissible :show="showAlert" @dismissed="showAlert=false">Product updated!</b-alert>
             <b-form @submit.prevent="update_product(row.item.id)">
               <!-- Product Name -->
               <b-form-group id="input-group-1" label="Product Name:" label-for="input-1">
@@ -26,6 +27,18 @@
                 </div>
               </b-form-group>
               <!-- Product Quantity -->
+              <b-form-group id="input-group-1" label="Product Quantity:" label-for="input-1">
+                <div v-if="product">
+                  <b-form-input id="input-1" v-model="product[0].productQuantity" type="number"></b-form-input>
+                </div>
+              </b-form-group>
+              <!-- Material Name -->
+              <b-form-group id="input-group-1" label="Product Quantity:" label-for="input-1">
+                <div v-if="product">
+                  <b-form-input id="input-1" v-model="product[0].productQuantity" type="number"></b-form-input>
+                </div>
+              </b-form-group>
+              <!-- Material Quantity -->
               <b-form-group id="input-group-1" label="Product Quantity:" label-for="input-1">
                 <div v-if="product">
                   <b-form-input id="input-1" v-model="product[0].productQuantity" type="number"></b-form-input>
@@ -74,10 +87,12 @@ export default {
   mounted() {
     this.$root.$on('bv::modal::hide', (bvEvent, modalId) => {
       this.refresh_products();
+      this.showAlert = false;
     })
   },
   data() {
     return {
+      showAlert: false,
       sortBy: "created_at",
       sortDesc: true,
       fields: [
@@ -112,10 +127,12 @@ export default {
         .then(data => (this.product = data));
     },
     update_product(id) {
-      this.$http.post("/api/bom/" + id, this.product, function(){
+      this.$http.post("/api/bom/" + id, this.product, function(data){
       });
+      this.showAlert = true;
     },
     refresh_products() {
+      this.isBusy = true;
       fetch("/api/bom")
         .then(response => response.json())
         .then(data => (this.items = data));
