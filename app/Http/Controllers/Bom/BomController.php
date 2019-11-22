@@ -52,7 +52,9 @@ class BomController extends Controller
      */
     public function show($id)
     {
-        //
+        if($id){
+            return Bom::where('id', $id)->get();
+        }
     }
 
     /**
@@ -61,9 +63,12 @@ class BomController extends Controller
      * @param  int  $id
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit($id, Request $request)
     {
-        //
+        $bom = Bom::find($id);
+        $bom->productName = $request->toArray()[0]['productName'];
+        $bom->productQuantity = $request->toArray()[0]['productQuantity'];
+        $bom->save();
     }
 
     /**

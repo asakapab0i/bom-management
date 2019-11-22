@@ -23,6 +23,8 @@ Route::group(['middleware' => 'auth:api'], function () {
     Route::patch('settings/profile', 'Settings\ProfileController@update');
     Route::patch('settings/password', 'Settings\PasswordController@update');
     Route::get('/bom', 'Bom\BomController@index');
+    Route::get('/bom/{id}', 'Bom\BomController@show');
+    Route::post('/bom/{id}', 'Bom\BomController@edit');
     Route::post('/bom/store', 'Bom\BomController@store');
 });
 
