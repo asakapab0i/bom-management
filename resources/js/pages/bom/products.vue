@@ -2,8 +2,12 @@
   <card :title="$t('bom_productlist')">
   <div>
     <b-table
+      borderless
       :items="items"
-      :fields="fields">
+      :fields="fields"
+      :busy="isBusy"
+      :sort-by.sync="sortBy"
+      :sort-desc.sync="sortDesc">
       <template v-slot:cell(show_details)="row">
         <b-button size="sm" class="mr-2">
           Show Details
@@ -32,9 +36,16 @@ export default {
   },
   data(){
     return {
-      fields: ['productName', 'productQuantity', 'productStatus', 'created_at'],
+      sortBy: 'created_at',
+      sortDesc: true,
+      fields: [
+        { key: 'productName', sortable: true },
+        { key: 'productQuantity', sortable: true },
+        { key: 'productStatus', sortable: true },
+        { key: 'created_at', sortable: true }
+      ],
       items : null,
-      isBusy: false,
+      isBusy: true,
     }
   },
   created(){
@@ -42,6 +53,9 @@ export default {
     fetch('/api/bom').then(response => response.json())
             .then((data) => this.items = data);
     this.toggleBusy()
+  },
+  updated(){
+    this.isBusy = false;
   },
   methods: {
     toggleBusy() {
