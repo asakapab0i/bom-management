@@ -99,4 +99,42 @@ class BomController extends Controller
     {
         //
     }
+
+    public function approve(Request $request, $id){
+        $bom = Bom::find($id)->get();
+        $mat = Material::find($bom[0]->material)->get();
+        $har = Hardware::find($bom[0]->hardware)->get();
+        $materialQuantity = $hardwareQuantity = $bomMatQty = $bomHarQty = 0;
+
+        foreach($bom as $bk => $bv){
+            $bomMatQty = $bv->materialQuantity;
+            $bomHarQty = $bv->hardwareQuantity;
+        }
+
+        foreach($mat as $mk => $mv){
+            $materialQuantity = $mv->materialQuantity;
+        }
+        foreach($har as $hk => $hv){
+            $hardwareQuantity = $hv->hardwareQuantity;
+        }
+
+        if($hardwareQuantity - $bomHarQty >= 0 && $materialQuantity - $bomMatQty >= 0){
+            //update
+
+            $matSave = Material::find($mat[0]->id);
+            $harSave = Hardware::find($har[0]->id);
+            $bomSave = Bom::find($bom[0]->id);
+
+            $matSave->materialQuantity = $materialQuantity - $bomMatQty;
+            $harSave->hardwareQuantity = $hardwareQuantity - $bomHarQty;
+            $bomSave->productStatus = "Approved";
+
+            $matSave->save();
+            $harSave->save();
+            $bomSave->save();
+        }else{
+            abort(500, 'Something went wrong');
+        }
+
+    }
 }

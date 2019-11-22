@@ -34,7 +34,7 @@
               <!-- Product Quantity -->
               <b-form-group id="input-group-1" label="Product Quantity:" label-for="input-1">
                 <div v-if="product">
-                  <b-form-input @keyup="changeQty" id="input-1" v-model="product[0].productQuantity" type="number"></b-form-input>
+                  <b-form-input @change="changeQty" id="input-1" v-model="product[0].productQuantity" type="number"></b-form-input>
                 </div>
               </b-form-group>
               <div class="form-row material-input">
@@ -65,10 +65,10 @@
                   </div>
                 </b-form-group>
               </div>
-              <b-button size="sm" variant="success" type="submit">Update</b-button>
+              <b-button :disabled="product[0].productStatus == 'Approved'" size="sm" variant="success" type="submit">Update</b-button>
             </b-form>
             <template v-slot:modal-footer="{ ok, cancel, hide }">
-              <b-button size="sm" variant="outline-success" @click="hide('forget')">Approve</b-button>
+              <b-button :disabled="product[0].productStatus == 'Approved'" size="sm" variant="outline-success" @click="handle_approval(row.item.id)">Approve</b-button>
               <b-button size="sm" variant="danger" @click="cancel()">Close</b-button>
               <!-- Button with custom close trigger value -->
             </template>
@@ -176,6 +176,9 @@ export default {
         this.product[0].hardwareQuantity = this.product[0].hardwareQuantity * this.product[0].productQuantity
         this.product[0].materialQuantity = this.product[0].materialQuantity * this.product[0].productQuantity
       }
+    },
+    handle_approval(id){
+      this.$http.post("/api/bom/approve/" + id, this.product, function(data) {});
     }
   }
 };
