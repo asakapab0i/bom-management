@@ -1,24 +1,18 @@
-# Laravel-Vue SPA 
+# Laravel-Vue SPA with BOM Management
 
-<a href="https://travis-ci.org/cretueusebiu/laravel-vue-spa"><img src="https://travis-ci.org/cretueusebiu/laravel-vue-spa.svg?branch=master" alt="Build Status"></a>
-<a href="https://packagist.org/packages/cretueusebiu/laravel-vue-spa"><img src="https://poser.pugx.org/cretueusebiu/laravel-vue-spa/d/total.svg" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/cretueusebiu/laravel-vue-spa"><img src="https://poser.pugx.org/cretueusebiu/laravel-vue-spa/v/stable.svg" alt="Latest Stable Version"></a>
-
-> A Laravel-Vue SPA starter project template.
+> A simple minimum viable product of Bill of Materials management software using Laravel-Vue SPA framework.
+> This exercise was part of requirements submitted to me for a proposed system.
 
 <p align="center">
 <img src="https://i.imgur.com/NHFTsGt.png">
 </p>
 
-## Features
+![System Overview](https://raw.githubusercontent.com/asakapab0i/bom-management/master/Capture1.PNG)
+![Product Overview](https://raw.githubusercontent.com/asakapab0i/bom-management/master/Capture2.PNG)
 
-- Laravel 6.0
-- Vue + VueRouter + Vuex + VueI18n + ESlint
-- Pages with dynamic import and custom layouts
-- Login, register, email verification and password reset
-- Authentication with JWT
-- Socialite integration
-- Bootstrap 4 + Font Awesome 5
+Here's the deployment link.
+[Bom Management](https://bom-mgmt.herokuapp.com/bom/materials)
+[Demo Account Registration](https://bom-mgmt.herokuapp.com/bom/register)
 
 ## Installation
 
@@ -46,20 +40,8 @@ npm run hot
 npm run production
 ```
 
-## Socialite
-
-This project comes with GitHub as an example for [Laravel Socialite](https://laravel.com/docs/5.8/socialite).
-
-To enable the provider create a new GitHub application and use `https://example.com/api/oauth/github/callback` as the Authorization callback URL.
-
-Edit `.env` and set `GITHUB_CLIENT_ID` and `GITHUB_CLIENT_SECRET` with the keys form your GitHub application.
-
-For other providers you may need to set the appropriate keys in `config/services.php` and redirect url in `OAuthController.php`.
-
-## Email Verification
-
-To enable email verification make sure that your `App\User` model implements the `Illuminate\Contracts\Auth\MustVerifyEmail` contract.
-
 ## Changelog
 
-Please see [CHANGELOG](CHANGELOG.md) for more information what has changed recently.
+Initial release
+Heroku deployment
+Readme.md Update
