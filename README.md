@@ -1,7 +1,7 @@
 # Laravel-Vue SPA with BOM Management
 
 > A simple minimum viable product of Bill of Materials management software using Laravel-Vue SPA framework.
-> This exercise was part of requirements submitted to me for a proposed system.
+> This exercise was part of requirements submitted to me for a proposed system with a few days to accomplish the MVP.
 
 <p align="center">
 <img src="https://i.imgur.com/NHFTsGt.png">
@@ -12,11 +12,11 @@
 
 Here's the deployment link.
 [Bom Management](https://bom-mgmt.herokuapp.com/bom/materials)
-[Demo Account Registration](https://bom-mgmt.herokuapp.com/bom/register)
+[Demo Account Registration](https://bom-mgmt.herokuapp.com/register)
 
 ## Installation
 
-- `composer create-project --prefer-dist cretueusebiu/laravel-vue-spa`
+- `composer create-project --prefer-dist asakapab0i/bom-management`
 - Edit `.env` and set your database connection details
 - (When installed via git clone or download, run `php artisan key:generate` and `php artisan jwt:secret`)
 - `php artisan migrate`
