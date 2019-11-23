@@ -11,7 +11,7 @@
           {{ $t('login') }}
         </router-link>
         <router-link :to="{ name: 'register' }">
-          {{ $t('register') }}
+          <!-- {{ $t('register') }} -->
         </router-link>
       </template>
     </div>

@@ -65,10 +65,10 @@
                   </div>
                 </b-form-group>
               </div>
-              <b-button :disabled="product[0].productStatus == 'Approved'" size="sm" variant="success" type="submit">Update</b-button>
+              <b-button :disabled="check_approve() ? true:false" size="sm" variant="success" type="submit">Update</b-button>
             </b-form>
             <template v-slot:modal-footer="{ ok, cancel, hide }">
-              <b-button :disabled="product[0].productStatus == 'Approved'" size="sm" variant="outline-success" @click="handle_approval(row.item.id)">Approve</b-button>
+              <b-button size="sm" variant="outline-success" @click="handle_approval(row.item.id)">Approve</b-button>
               <b-button size="sm" variant="danger" @click="cancel()">Close</b-button>
               <!-- Button with custom close trigger value -->
             </template>
@@ -179,6 +179,13 @@ export default {
     },
     handle_approval(id){
       this.$http.post("/api/bom/approve/" + id, this.product, function(data) {});
+    },
+    check_approve(){
+      if(this.product && this.product[0].productStatus == 'Approved'){
+        return true;
+      }else{
+        return false;
+      }
     }
   }
 };
